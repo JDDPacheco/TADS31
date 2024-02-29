@@ -1,2 +1,2 @@
-# TADS31_APBD
-Repositório a Disciplina de Administração e Programação em Banco de Dados
+# TADS31
+Repositório para anotação e codificações das Disciplinas de TADS - 3º Período
