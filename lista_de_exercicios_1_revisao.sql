@@ -1,7 +1,5 @@
 USE bd2024;
 
--- PARTE II
-
 -- QUESTÃO 1
 ALTER TABLE funcionario ADD COLUMN fundtnascto DATE;
 ALTER TABLE funcionario ADD COLUMN fundtadmissao DATE;
@@ -22,21 +20,19 @@ ALTER TABLE venda ADD COLUMN vendformapagamento SMALLINT;
 
 ALTER TABLE formapagamento ADD PRIMARY KEY (fpgcodigo);
 
+-- QUESTÃO 6
 ALTER TABLE venda ADD FOREIGN KEY (vendformapagamento)
 REFERENCES formapagamento (fpgcodigo);
+INSERT INTO formapagamento (fpgcodigo, fpgdescricao, fpgativo) VALUES 
+('1', 'Dinheiro em especie', TRUE),
+('2', 'Cartão de Credito', TRUE),
+('3', 'Cartão de Debito', TRUE),
+('4', 'Pix', TRUE);
+
+update venda set vendformapagamento=1 where vendformapagamento is null;
 
 -- QUESTÃO 5
 ALTER TABLE venda MODIFY vendformapagamento SMALLINT NOT NULL;
-
--- QUESTÃO 6
-INSERT INTO formapagamento (fpgcodigo, fpgdescricao, fpgativo) VALUES 
-('1', 'Dinheiro em especie', 'TRUE'),
-('2', 'Cartão de Credito', 'TRUE'),
-('3', 'Cartão de Debito', 'TRUE'),
-('4', 'Pix', 'TRUE');
-SET SQL_SAFE_UPDATES = 0;
-SET FOREIGN_KEY_CHECKS=0;
-UPDATE venda SET vendformapagamento ='1' WHERE vendformapagamento IS NULL;
 
 -- QUESTÃO 7
 UPDATE funcionario SET funsexo = 'M' WHERE funcodigo = '1';
@@ -62,15 +58,19 @@ UPDATE funcionario SET fundtnascto = '1998-07-20' WHERE funcodigo = '8';
 UPDATE funcionario SET fundtnascto = '1993-03-03' WHERE funcodigo = '9';
 UPDATE funcionario SET fundtnascto = '1997-02-15' WHERE funcodigo = '10';
 
-
 -- QUESTÃO 9
 INSERT INTO funcionario(funcodigo, funnome, funsalario, funbaicodigo, funcodgerente, funestcodigo, fundtnascto, fundtadmissao, funsexo) VALUES
-('31', 'Sannyer Carodos Carvalho Nery', '5450.00', '6', '2','1','1999-11-15','2024-02-09','M'),
-('32', 'Irismar Ferreira de Carvalho', '7230.00', '6', '2','3','1970-03-12','2024-02-09','F');
+('31', 'José Diogo Dutra Pacheco', '3270.00', '5', '2','2','1994-04-25','2024-02-09','M'),
+('32', 'Liliana Adalgiza dos Santos', '3190.00', '5', '1','2','1990-09-20','2024-02-09','F');
 
-
+/*
+delete from funcionario
+where funcodigo = 31;
+*/
 
 -- QUESTÃO 10
+SET SQL_SAFE_UPDATES = 0;
+
 UPDATE funcionario SET funsalario = funsalario + (funsalario*0.10) WHERE fundtdem IS NULL;
 
 -- QUESTÃO 11
@@ -187,12 +187,32 @@ INNER JOIN produto ON itvprocodigo= procodigo
 WHERE vencodigo IS NULL;
 
 -- QUESTÃO 28
+/* Questão mal feita, sugestão de melhoria do professor abaixo do código errado
+
 CREATE TABLE vendedor(
     vedfuncodigo INT(11) PRIMARY KEY,
     FOREIGN KEY (vedfuncodigo) REFERENCES funcionario(funcodigo)
 );
 ALTER TABLE venda ADD COLUMN venvedcodigo INT(11) NOT NULL;
 ALTER TABLE venda ADD FOREIGN KEY (venvedcodigo) REFERENCES vendedor(vedfuncodigo);
+*/
+
+#Criando relacionamento de forma de pagamento com venda
+create table vendedor(
+vdnfuncodigo int(11) not null unique,
+primary key(vdnfuncodigo)
+);
+
+insert into vendedor (vdnfuncodigo)
+select distinct venfuncodigo from venda;
+
+alter table venda 
+add constraint foreign key (venfuncodigo)
+references vendedor(vdnfuncodigo);
+
+alter table vendedor
+add constraint foreign key(vdnfuncodigo) 
+references funcionario(funcodigo);
 
 -- QUESTÃO 29
 SELECT grpdescricao, SUM(itvqtde) AS Total

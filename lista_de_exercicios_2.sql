@@ -1,14 +1,14 @@
 USE bd2024;
 
 -- 1) Surgiu a necessidade de registrar e manter histórico de todas as alterações salariais dos  funcionários.
-CREATE TABLE historicosalarios(
-histcodigo int(11) not null unique auto_increment,
-histfuncodigo int(11) NOT NULL,
-histantsalario double(6,2) NOT NULL,
-histnovosalario double(6,2) NOT NULL,
-histdtaumento date DEFAULT current_timestamp,
-PRIMARY KEY (histcodigo),
-FOREIGN KEY (histfuncodigo) REFERENCES funcionario(funcodigo)
+CREATE TABLE salariohistorico (
+    histcodigo int(11) not null unique auto_increment,
+    histfuncodigo int(11) NOT NULL,
+    histantsalario double(6,2) NOT NULL,
+    histnovosalario double(6,2) NOT NULL,
+    histdtaumento datetime default current_timestamp,
+    PRIMARY KEY (histcodigo),
+    FOREIGN KEY (histfuncodigo) REFERENCES funcionario(funcodigo)
 );
 
 -- 2) Escolha 3 funcionários quaisquer, e gere 3 mudanças de salários (aumento) para cada.
@@ -24,20 +24,24 @@ UPDATE funcionario SET funsalario = 2283.00
 WHERE funcodigo = 3;
 INSERT INTO salariohistorico (histfuncodigo, histantsalario, histnovosalario) VALUES (3, 1759.50, 2283.00);
 
-SELECT * FROM historicosalario;
+SELECT * FROM salariohistorico;
 
--- 3) Mostre os históricos de salários dos funcionários que tenham tido aumento de salário, com nome  e salário (sem os centavos).
-SELECT funnome 'Nome', hisantigosalario 'Salário Anterior', hisnovosalario 'Salário Atual'
+-- 3) Mostre os históricos de salários dos funcionários que tenham tido aumento de salário, com nome e salário (sem os centavos).
+SELECT funnome 'Nome', histantsalario 'Salário Anterior', histnovosalario 'Salário Atual'
 FROM funcionario
-INNER JOIN historicosalario
-ON funcodigo = hisfuncodigo;
+INNER JOIN salariohistorico
+ON funcodigo = histfuncodigo;
 
 -- 4) Mostre o total de vendas por sexo de clientes e forma de pagamento.
 SELECT clisexo 'Sexo', fpgdescricao 'Forma de Pagamento', COUNT(*) 'Total'
-FROM cliente INNER JOIN (SELECT venclicodigo, vendformapagamento, fpgdescricao FROM venda
-	INNER JOIN formapagamento ON fpgcodigo=vendformapagamento) subselecao 
+FROM cliente 
+INNER JOIN (
+    SELECT venclicodigo, vendformapagamento, fpgdescricao 
+    FROM venda 
+    INNER JOIN formapagamento ON fpgcodigo=vendformapagamento
+) subselecao 
 ON clicodigo = subselecao.venclicodigo
-GROUP BY clisexo;
+GROUP BY clisexo, fpgdescricao;
 
 -- 5) Mostre o nome e saldo do(s) produto(s) mais vendido para clientes do sexo feminino. 
 SELECT clisexo 'Sexo', pronome 'Produto', COUNT(*) 'Total Vendido'
@@ -59,7 +63,7 @@ INNER JOIN (SELECT venclicodigo, pronome FROM venda INNER JOIN
 	ON itvproduto.itvvencodigo = vencodigo) venda_item
 ON venda_item.venclicodigo = clicodigo
 WHERE clisexo = 'M' AND estdescricao in ('solteiro', 'divorciado')
-GROUP BY estdescricao
+GROUP BY estdescricao, pronome
 ORDER BY COUNT(*);
 
 -- 7) Mostre a forma de pagamento mais utilizada e o valor total vendido.
@@ -84,13 +88,19 @@ ORDER BY COUNT(*) DESC;
 alter table funcionario
 add fundtnasc date;
 
+/*
+UPDATE funcionario
+SET fundtnasc = DATE_ADD('1970-01-01', INTERVAL ROUND(RAND() * 365 * 50) DAY)
+WHERE funcodigo = 30;
+*/
+
 SELECT funnome as 'Nome Vendendor', round(datediff(current_date,fundtnasc)/365.25) as 'Idade', COUNT(*) as 'Total de Vendas'
 FROM funcionario
 INNER JOIN (SELECT vdnfuncodigo
             FROM vendedor
             INNER JOIN venda ON vdnfuncodigo = venfuncodigo) venda_vendedor
 ON venda_vendedor.vdnfuncodigo = funcodigo
-GROUP BY funnome
+GROUP BY funnome, round(datediff(current_date,fundtnasc)/365.25)
 ORDER BY COUNT(*) DESC;
 
 -- 10) Mostre os últimos nomes dos funcionários que não realizaram vendas;

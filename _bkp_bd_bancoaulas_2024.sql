@@ -149,7 +149,7 @@ CREATE TABLE `estadocivil` (
 
 LOCK TABLES `estadocivil` WRITE;
 /*!40000 ALTER TABLE `estadocivil` DISABLE KEYS */;
-INSERT INTO `estadocivil` VALUES (1,'Solteiro'),(2,'Casado'),(3,'Divorciado'),(4,'ViÃºvo');
+INSERT INTO `estadocivil` VALUES (1,'Solteiro'),(2,'Casado'),(3,'Divorciado'),(4,'Viúvo');
 /*!40000 ALTER TABLE `estadocivil` ENABLE KEYS */;
 UNLOCK TABLES;
 
