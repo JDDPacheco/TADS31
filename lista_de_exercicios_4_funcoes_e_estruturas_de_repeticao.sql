@@ -45,6 +45,19 @@ begin
 end ##
 delimiter ;
 
+-- Função que recebe um caractere e retorno se é ou não uma vogal (true ou false)
+drop function if exists f_is_vogal;
+delimiter ##
+create function f_is_vogal(p_char char) returns boolean
+begin
+	if p_char in ('A','E','I','O','U') then
+		return true;
+    else
+		return false;
+    end if;
+end ##
+delimiter ;
+
 -- Criada função para retornar o valor total das vogais encontradas em uma string de entrada
 drop function if exists f_valor_total_vogais;
 delimiter ##
