@@ -18,12 +18,14 @@ Select f_total_vogais(“BANCO DE DADOS - BANCO”);
 
 Resultado: 12
 */
+-- Inicialização: incluindo o scriptSQL para o bd2024 e ativando a criação de funções
 use bd2024;
-
 set global log_bin_trust_function_creators = 1;
 
-drop function if exists f_valor_vogal;
+-- Início da resolução da questão 1
 
+-- Criada função para retornar o valor exato de uma vogal fornecida como parâmetro
+drop function if exists f_valor_vogal;
 delimiter ##
 create function f_valor_vogal(p_vogal char(1)) returns int
 begin
@@ -43,10 +45,10 @@ begin
 end ##
 delimiter ;
 
-drop function if exists f_total_vogais;
-
+-- Criada função para retornar o valor total das vogais encontradas em uma string de entrada
+drop function if exists f_valor_total_vogais;
 delimiter ##
-create procedure sp_total_vogais(p_string varchar(100))
+create function f_valor_total_vogais(p_string varchar(100)) returns int
 begin
     declare v_contador int default 1;
     declare v_tam_string int default 0;
@@ -60,19 +62,20 @@ begin
         end if;
         set v_contador = v_contador + 1;
     end while;
-    select v_valor_vogais;
+    return v_valor_vogais;
 end ##
 delimiter ;
 
-call sp_total_vogais('BANCO DE DADOS');
+-- Chamada da função
+select f_valor_total_vogais('BANCO DE DADOS') as 'f_valor_total_vogais';
 
 /*
 2. Implemente a função f_meu_left(). As únicas funções permitidas no código são substring(),
 length() e concat().
 */
 
+-- Criada função que tem o mesmo comportamento da função nativa left(), mas apenas usando funções específicas
 drop function if exists f_meu_left;
-
 delimiter ##
 create function f_meu_left(p_string varchar(100), p_limitador smallint unsigned) returns varchar(100)
 begin
@@ -95,14 +98,15 @@ begin
 end ##
 delimiter ;
 
+-- Chamada da função
 select f_meu_left('BANCO DE DADOS',5) as 'f_meu_left';
 
 /*
 3. Implemente a função f_meu_right(), com as mesmas regras de questão 2.
 */
 
+-- Criada função que tem o mesmo comportamento da função nativa rigtht(), mas apenas usando funções específicas
 drop function if exists f_meu_right;
-
 delimiter ##
 create function f_meu_right(p_string varchar(100), p_inicializador smallint unsigned) returns varchar(100)
 begin
@@ -113,7 +117,7 @@ begin
     set v_tam_string = length(p_string);
     set v_inicializador = v_tam_string - p_inicializador + 1;
     
-    -- set v_right = substring(p_string,v_inicializador); -- Daria pra fazer assim, sem laço de repetição
+    -- set v_right = substring(p_string,v_inicializador); -- Daria pra fazer assim, sem laço de repetição, mas acredito que não era este o intuito do exercício
     
     while (v_inicializador <= v_tam_string) do
 		set v_right = concat(v_right,substring(p_string,v_inicializador,1));
@@ -125,6 +129,7 @@ begin
 end ##
 delimiter ;
 
+-- Chamada da função
 select f_meu_right('BANCO DE DADOS',5) as 'f_meu_right';
 
 /*
@@ -132,14 +137,14 @@ select f_meu_right('BANCO DE DADOS',5) as 'f_meu_right';
 ocorrem em determinada STRING. Lembre que “string” pode ter 1 ou n posições... 😊
 */
 
+-- Criada função que tem o mesmo comportamento da função nativa locate(), mas apenas usando funções específicas e a função criada anteriormente 'f_meu_right'
 drop function if exists f_meu_locate;
-
 delimiter ##
-create function f_meu_locate(p_caractere char(1), p_string varchar(100000)) returns varchar(100000)
+create function f_meu_locate(p_caractere char(1), p_string varchar(10000)) returns varchar(10000)
 begin
 	declare v_tam_string int default 0;
     declare v_indice int default 1;
-    declare v_string_resposta varchar(100000) default '';
+    declare v_string_resposta varchar(10000) default '';
     declare v_caractere_atual char (1) default '';
     set v_tam_string = length(p_string);
     while (v_indice <= v_tam_string) do
@@ -162,8 +167,10 @@ Exemplo: Select f_limpa_str(“Pro%gra”mação em ban/co-d$e’da)do(s]=\)
 Resultado: Programação em banco de dados
 */
 
+-- Função criada para determinar se determinado caractere que entra como parametro deve ser eliminado ou não,
+-- para isto ela usa intervalos da tabela ASCII onde os caracteres comuns da língua portuguesa são encontrados nas suas formas maiúsculas e minúsculas
+-- retornando 'true' caso o caractere não seja um caractere comum e 'false' cada seja um caractere comum
 drop function if exists f_caracter_remover;
-
 delimiter ##
 create function f_caracter_remover(p_caractere char(1)) returns boolean
 begin
@@ -183,22 +190,20 @@ begin
 end ##
 delimiter ;
 
-select ascii('');
-
+-- Criada função para receber um string "suja" e retornar "limpa"
 drop function if exists f_limpa_str;
-
 delimiter ##
 create function f_limpa_str(p_string varchar(10000)) returns varchar(10000)
 begin
 	declare v_string_resposta varchar(10000) default '';
     declare v_contador int default 1;
     declare v_tam_string int default 0;
-    declare v_caractere_atual char(1) default '';
+    declare v_caractere_atual char(1) default ''; 
     set v_tam_string = length(p_string);
     while (v_contador <= v_tam_string) do
 		set v_caractere_atual = substring(p_string,v_contador,1);
-        if v_caractere_atual = ' ' then
-			set v_string_resposta = concat(v_string_resposta,' ');
+        if v_caractere_atual = ' ' then								-- O caso do espaço teve que ser tratado exclusivamente por motivo de o SQL não reconhecer o códido ASCII dele como 32,
+			set v_string_resposta = concat(v_string_resposta,' ');	-- mas sim como 0 que seria um caractere vazio na ASCII, e isso faria os espaços serem excluídos junto com os caracteres "estranhos"
 		elseif not f_caracter_remover(v_caractere_atual) then
 			set v_string_resposta = concat(v_string_resposta,v_caractere_atual);
         end if;
@@ -208,31 +213,29 @@ begin
 end ##
 delimiter ;
 
-select f_limpa_str('Pro%gra”mação em ban/co -d$e ’da)do(s]=\'');
+-- Chamada da função
+select f_limpa_str('Pro%gra”mação em ban/co -d$e ’da)do(s]=\'') as 'f_limpar_str';
 
 /*
-
--- Área de testes para obter melhor os valores da tabela ASCII --
+-- Área de testes para obter melhor os valores da tabela ASCII
+-- Esta áres foi utilizada para entender melhor como a função ascii() retorna o valor para determinados caracteres
+-- Isso foi importante para determinar a melhor forma de lidar com espaços no texto e com caracteres especiais da língua portuguesa, como letras acentuadas e cedilha
 
 call sp_teste('Pro%gra”mação em ban/co-d$e’da)do(s]=\'');
 
 drop procedure if exists sp_teste;
-
 delimiter ##
-
 create procedure sp_teste(p_string varchar(10000))
-
 begin
 	declare v_contador tinyint unsigned default 0;
     declare v_caractere_atual char(1) default '';
     while(v_contador <= length(p_string)) do
 		set v_caractere_atual = substring(p_string,v_contador,1);
-		select v_caractere_atual as 'caractere', ascii(v_caractere_atual) as 'ASCII';
+		select v_caractere_atual as 'Caractere', ascii(v_caractere_atual) as 'ASCII';
         set v_contador = v_contador + 1;
 	end while;
 end ##
 delimiter ;
-
 */
 
 /*
@@ -243,8 +246,8 @@ b. Caso encontre uma letra maiúscula no meio de uma palavra, deve trocar por
 minúscula. (LOWER)
 */
 
+-- Criação da função UPPER incluindo letras acentudas da língua portuguesa
 drop function if exists f_upper;
-
 delimiter ##
 create function f_upper(p_caractere char(1)) returns char(1)
 begin
@@ -260,8 +263,8 @@ begin
 end ##
 delimiter ;
 
+-- Criação da função LOWER incluindo letras acentudas da língua portuguesa
 drop function if exists f_lower;
-
 delimiter ##
 create function f_lower(p_caractere char(1)) returns char(1)
 begin
@@ -277,8 +280,8 @@ begin
 end ##
 delimiter ;
 
+-- Implementação da função f_capital() conforme critérios exigidos
 drop function if exists f_capital;
-
 delimiter ##
 create function f_capital(p_string varchar(10000)) returns varchar(10000)
 begin
@@ -290,15 +293,15 @@ begin
     while (v_cont <= v_tam_string) do
 		set v_caract_atual = substring(p_string,v_cont,1);
         if ascii(v_caract_ant) = 0 then
-			set v_string_retorno = concat(v_string_retorno,f_upper(v_caract_atual));
+			set v_string_retorno = concat(v_string_retorno,f_upper(v_caract_atual)); -- Se o anterior for vazio (ou espaço) é chamada a função UPPER
 		elseif ascii(v_caract_atual) between 65 and 90 then
-			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual));
+			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual)); -- Caso seja uma letra maiúscula não antecedida por vazio, ou seja, está no meio de uma palavra, chamada LOWER
 		elseif ascii(v_caract_atual) between 192 and 218 then
-			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual));
+			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual)); -- Mesmo caso anterios mas para letras acentuadas e cedilha
 		elseif v_caract_atual = ' ' then
-			set v_string_retorno = concat(v_string_retorno,' ');
+			set v_string_retorno = concat(v_string_retorno,' ');	-- Novamente precisamos tratar o espaço de forma especial
 		else
-			set v_string_retorno = concat(v_string_retorno,v_caract_atual);
+			set v_string_retorno = concat(v_string_retorno,v_caract_atual); -- Caso não seja espaço, vazio ou maiúscula, a letra ou caractere é adicionada da forma que está
 		end if;
         set v_caract_ant = v_caract_atual;
         set v_cont = v_cont + 1;
