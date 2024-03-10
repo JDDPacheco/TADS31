@@ -2,6 +2,8 @@ use bd2024;
 
 set global log_bin_trust_function_creators = 1; -- Necessário para implementar functions em MySQL
 
+drop procedure if exists sp_contador;
+
 delimiter ##
 
 create procedure sp_contador(p_numero tinyint)
@@ -17,8 +19,6 @@ end ##
 delimiter ;
 
 call sp_contador(20);
-
-drop procedure sp_contador;
 
 /* Exercícios(SP):
 
@@ -95,6 +95,8 @@ begin
 	
 end ##
 delimiter ;
+
+call sp_somente_vogais('LKJH2KJH6;LKA;LK3LKJU;LO');
 
 drop procedure sp_somente_vogais;
 

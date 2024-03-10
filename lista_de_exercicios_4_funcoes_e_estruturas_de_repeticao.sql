@@ -17,16 +17,225 @@ a. Exemplo:
 Select f_total_vogais(“BANCO DE DADOS - BANCO”);
 
 Resultado: 12
+*/
+use bd2024;
 
+set global log_bin_trust_function_creators = 1;
+
+drop function if exists f_valor_vogal;
+
+delimiter ##
+create function f_valor_vogal(p_vogal char(1)) returns int
+begin
+    if p_vogal = 'a' then
+		return 1;
+	elseif p_vogal = 'e' then
+		return 2;
+	elseif p_vogal = 'i' then
+		return 3;
+	elseif p_vogal = 'o' then
+		return 4;
+	elseif p_vogal = 'u' then
+		return 5;
+	else
+		return 0;
+    end if;
+end ##
+delimiter ;
+
+drop function if exists f_total_vogais;
+
+delimiter ##
+create procedure sp_total_vogais(p_string varchar(100))
+begin
+    declare v_contador int default 1;
+    declare v_tam_string int default 0;
+    declare v_valor_vogais int default 0;
+    
+    set v_tam_string = length(p_string);
+    
+    while(v_contador <= v_tam_string) do
+        if (select f_is_vogal(substring(p_string,v_contador,1))) then
+			set v_valor_vogais = v_valor_vogais + f_valor_vogal(substring(p_string,v_contador,1));
+        end if;
+        set v_contador = v_contador + 1;
+    end while;
+    select v_valor_vogais;
+end ##
+delimiter ;
+
+call sp_total_vogais('BANCO DE DADOS');
+
+/*
 2. Implemente a função f_meu_left(). As únicas funções permitidas no código são substring(),
 length() e concat().
+*/
+
+drop function if exists f_meu_left;
+
+delimiter ##
+create function f_meu_left(p_string varchar(100), p_limitador smallint unsigned) returns varchar(100)
+begin
+	declare v_contador int default 1;
+    declare v_left varchar(100) default '';
+    declare v_limitador smallint unsigned default 0;
+
+    if p_limitador > length(p_string) then
+		set v_limitador = length(p_string);
+	else
+		set v_limitador = p_limitador;
+    end if;
+    
+    while (v_contador <= v_limitador) do
+		set v_left = concat(v_left,substring(p_string,v_contador,1));
+		set v_contador = v_contador + 1;
+    end while;
+    return v_left;
+    
+end ##
+delimiter ;
+
+select f_meu_left('BANCO DE DADOS',5) as 'f_meu_left';
+
+/*
 3. Implemente a função f_meu_right(), com as mesmas regras de questão 2.
+*/
+
+drop function if exists f_meu_right;
+
+delimiter ##
+create function f_meu_right(p_string varchar(100), p_inicializador smallint unsigned) returns varchar(100)
+begin
+    declare v_right varchar(100) default '';
+    declare v_inicializador smallint unsigned default 0;
+    declare v_tam_string int default 0;
+    
+    set v_tam_string = length(p_string);
+    set v_inicializador = v_tam_string - p_inicializador + 1;
+    
+    -- set v_right = substring(p_string,v_inicializador); -- Daria pra fazer assim, sem laço de repetição
+    
+    while (v_inicializador <= v_tam_string) do
+		set v_right = concat(v_right,substring(p_string,v_inicializador,1));
+		set v_inicializador = v_inicializador + 1;
+    end while;
+    
+    return v_right;
+    
+end ##
+delimiter ;
+
+select f_meu_right('BANCO DE DADOS',5) as 'f_meu_right';
+
+/*
 4. Implemente a função f_meu_locate(), sendo que a nossa vai retornar todas as posições que
 ocorrem em determinada STRING. Lembre que “string” pode ter 1 ou n posições... 😊
+*/
+
+drop function if exists f_meu_locate;
+
+delimiter ##
+create function f_meu_locate(p_caractere char(1), p_string varchar(100000)) returns varchar(100000)
+begin
+	declare v_tam_string int default 0;
+    declare v_indice int default 1;
+    declare v_string_resposta varchar(100000) default '';
+    declare v_caractere_atual char (1) default '';
+    set v_tam_string = length(p_string);
+    while (v_indice <= v_tam_string) do
+		set v_caractere_atual = substring(p_string,v_indice,1);
+		if v_caractere_atual = p_caractere then
+			set v_string_resposta = concat(v_string_resposta,' - ',v_indice);
+        end if;
+		set v_indice = v_indice + 1;
+    end while;
+    return f_meu_right(v_string_resposta,(length(v_string_resposta) - 3));
+end ##
+delimiter ;
+
+select f_meu_locate('D', 'BANCO DE DADOS') as 'f_meu_locate';
+
+/*
 5. Implemente uma função que procura pelos seguintes caracteres: ( ) / \ + $ % - ‘ “ e caso
 encontre, simplesmente retire do texto.
 Exemplo: Select f_limpa_str(“Pro%gra”mação em ban/co-d$e’da)do(s]=\)
 Resultado: Programação em banco de dados
+*/
+
+drop function if exists f_caracter_remover;
+
+delimiter ##
+create function f_caracter_remover(p_caractere char(1)) returns boolean
+begin
+	if ascii(p_caractere) = 32 then
+		return false;
+	elseif ascii(p_caractere) between 65 and 90 then
+		return false;
+	elseif ascii(p_caractere) between 97 and 122 then
+		return false;
+	elseif ascii(p_caractere) between 224 and 250 then
+		return false;
+	elseif ascii(p_caractere) between 170 and 186 then
+		return false;
+    else
+		return true;
+    end if;
+end ##
+delimiter ;
+
+select ascii('');
+
+drop function if exists f_limpa_str;
+
+delimiter ##
+create function f_limpa_str(p_string varchar(10000)) returns varchar(10000)
+begin
+	declare v_string_resposta varchar(10000) default '';
+    declare v_contador int default 1;
+    declare v_tam_string int default 0;
+    declare v_caractere_atual char(1) default '';
+    set v_tam_string = length(p_string);
+    while (v_contador <= v_tam_string) do
+		set v_caractere_atual = substring(p_string,v_contador,1);
+        if v_caractere_atual = ' ' then
+			set v_string_resposta = concat(v_string_resposta,' ');
+		elseif not f_caracter_remover(v_caractere_atual) then
+			set v_string_resposta = concat(v_string_resposta,v_caractere_atual);
+        end if;
+        set v_contador = v_contador + 1;
+    end while;
+    return v_string_resposta;
+end ##
+delimiter ;
+
+select f_limpa_str('Pro%gra”mação em ban/co -d$e ’da)do(s]=\'');
+
+/*
+
+-- Área de testes para obter melhor os valores da tabela ASCII --
+
+call sp_teste('Pro%gra”mação em ban/co-d$e’da)do(s]=\'');
+
+drop procedure if exists sp_teste;
+
+delimiter ##
+
+create procedure sp_teste(p_string varchar(10000))
+
+begin
+	declare v_contador tinyint unsigned default 0;
+    declare v_caractere_atual char(1) default '';
+    while(v_contador <= length(p_string)) do
+		set v_caractere_atual = substring(p_string,v_contador,1);
+		select v_caractere_atual as 'caractere', ascii(v_caractere_atual) as 'ASCII';
+        set v_contador = v_contador + 1;
+	end while;
+end ##
+delimiter ;
+
+*/
+
+/*
 6. Implemente a função f_capital(), que deve fazer o seguinte:
 a. Caso encontre uma letra minúscula no início de uma string ou após um espaço, deve
 trocar pela mesma letra maiúscula; (UPPER)
@@ -34,6 +243,68 @@ b. Caso encontre uma letra maiúscula no meio de uma palavra, deve trocar por
 minúscula. (LOWER)
 */
 
--- Resolução das questões
+drop function if exists f_upper;
 
--- 1.
+delimiter ##
+create function f_upper(p_caractere char(1)) returns char(1)
+begin
+	declare v_retorno char(1) default '';
+    if ascii(p_caractere) between 97 and 122 then
+		set v_retorno = char(ascii(p_caractere) - 32);
+	elseif ascii(p_caractere) between 224 and 250 then
+		set v_retorno = char(ascii(p_caractere) - 32);
+	else
+		set v_retorno = p_caractere;
+	end if;
+    return v_retorno;
+end ##
+delimiter ;
+
+drop function if exists f_lower;
+
+delimiter ##
+create function f_lower(p_caractere char(1)) returns char(1)
+begin
+	declare v_retorno char(1) default '';
+    if ascii(p_caractere) between 65 and 90 then
+		set v_retorno = char(ascii(p_caractere) + 32);
+	elseif ascii(p_caractere) between 192 and 218 then
+		set v_retorno = char(ascii(p_caractere) + 32);
+	else
+		set v_retorno = p_caractere;
+	end if;
+    return v_retorno;
+end ##
+delimiter ;
+
+drop function if exists f_capital;
+
+delimiter ##
+create function f_capital(p_string varchar(10000)) returns varchar(10000)
+begin
+	declare v_caract_ant, v_caract_atual char(1) default '';
+    declare v_cont int default 1;
+    declare v_tam_string int default 0;
+    declare v_string_retorno varchar(10000) default '';
+    set v_tam_string = length(p_string);
+    while (v_cont <= v_tam_string) do
+		set v_caract_atual = substring(p_string,v_cont,1);
+        if ascii(v_caract_ant) = 0 then
+			set v_string_retorno = concat(v_string_retorno,f_upper(v_caract_atual));
+		elseif ascii(v_caract_atual) between 65 and 90 then
+			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual));
+		elseif ascii(v_caract_atual) between 192 and 218 then
+			set v_string_retorno = concat(v_string_retorno,f_lower(v_caract_atual));
+		elseif v_caract_atual = ' ' then
+			set v_string_retorno = concat(v_string_retorno,' ');
+		else
+			set v_string_retorno = concat(v_string_retorno,v_caract_atual);
+		end if;
+        set v_caract_ant = v_caract_atual;
+        set v_cont = v_cont + 1;
+    end while;
+    return v_string_retorno;
+end ##
+delimiter ;
+
+select f_capital('ALUNO: joSÉ dIOGO Dutra PACHecO | tads31') as 'f_capital';
