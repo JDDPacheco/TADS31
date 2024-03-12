@@ -45,7 +45,7 @@ begin
 end ##
 delimiter ;
 
--- Função que recebe um caractere e retorno se é ou não uma vogal (true ou false)
+/*-- Função que recebe um caractere e retorno se é ou não uma vogal (true ou false)
 drop function if exists f_is_vogal;
 delimiter ##
 create function f_is_vogal(p_char char) returns boolean
@@ -56,7 +56,7 @@ begin
 		return false;
     end if;
 end ##
-delimiter ;
+delimiter ;*/
 
 -- Criada função para retornar o valor total das vogais encontradas em uma string de entrada
 drop function if exists f_valor_total_vogais;
@@ -153,16 +153,18 @@ ocorrem em determinada STRING. Lembre que “string” pode ter 1 ou n posiçõe
 -- Criada função que tem o mesmo comportamento da função nativa locate(), mas apenas usando funções específicas e a função criada anteriormente 'f_meu_right'
 drop function if exists f_meu_locate;
 delimiter ##
-create function f_meu_locate(p_caractere char(1), p_string varchar(10000)) returns varchar(10000)
+create function f_meu_locate(p_string_procurada varchar(10000), p_string_base varchar(10000)) returns varchar(10000)
 begin
-	declare v_tam_string int default 0;
+	declare v_tam_string_base int default 0;
     declare v_indice int default 1;
     declare v_string_resposta varchar(10000) default '';
-    declare v_caractere_atual char (1) default '';
-    set v_tam_string = length(p_string);
-    while (v_indice <= v_tam_string) do
-		set v_caractere_atual = substring(p_string,v_indice,1);
-		if v_caractere_atual = p_caractere then
+    declare v_string_atual varchar(10000) default '';
+    declare v_tam_string_procurada int default 0;
+    set v_tam_string_procurada = length(p_string_procurada);
+    set v_tam_string_base = length(p_string_base);
+    while (v_indice <= v_tam_string_base) do
+		set v_string_atual = substring(p_string_base,v_indice,v_tam_string_procurada);
+		if v_string_atual = p_string_procurada then
 			set v_string_resposta = concat(v_string_resposta,' - ',v_indice);
         end if;
 		set v_indice = v_indice + 1;
@@ -171,7 +173,7 @@ begin
 end ##
 delimiter ;
 
-select f_meu_locate('D', 'BANCO DE DADOS') as 'f_meu_locate';
+select f_meu_locate('DE', 'BANCO DE DADOS') as 'f_meu_locate';
 
 /*
 5. Implemente uma função que procura pelos seguintes caracteres: ( ) / \ + $ % - ‘ “ e caso
