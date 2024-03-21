@@ -12,5 +12,6 @@
         <p>Valor da altura: <%= request.getAttribute("altura") %></p>
         <p><span style="font-weight: bold; color: #ff5733;">Área do Triângulo: <%= request.getAttribute("area") %></span></p>
         <a href="index.html" class="btn-voltar">Voltar à Página Inicial</a>
+        <a href="form-triangulo.html" class="btn-voltar">Novas dimensões</a>
     </body>
 </html>

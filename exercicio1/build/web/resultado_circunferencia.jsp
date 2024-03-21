@@ -10,6 +10,7 @@
         <h1>Resultado do Cálculo da Área da Circunferência</h1>
         <p>Valor do raio: <%= request.getAttribute("raio") %></p>
         <p><span style="font-weight: bold; color: #ff5733;">Área da Circunferência: <%= request.getAttribute("area") %></span></p>
-        <a href="index.html" class="btn-voltar">Voltar à Página Inicial</a>
+        <a href="index.html" class="btn-voltar">Voltar ao Início</a>
+        <a href="form-circunferencia.html" class="btn-voltar">Novas dimensões</a>
     </body>
 </html>
