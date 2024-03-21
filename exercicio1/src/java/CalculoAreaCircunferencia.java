@@ -23,21 +23,9 @@ public class CalculoAreaCircunferencia extends HttpServlet {
         // Encaminhe o controle para a página .jsp desejada
         request.getRequestDispatcher("resultado_circunferencia.jsp").forward(request, response);
     }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }
 }
