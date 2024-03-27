@@ -39,7 +39,10 @@ public class AutenticarLogin extends HttpServlet {
         if (usuarioEncontrado) {
             // Usuário autenticado com sucesso
             // Redireciona para o index
-            response.sendRedirect("index.jsp");
+            // Último usuário logado
+            String ultimoUsuario = usuarioRecebido;
+            request.setAttribute("ultimoUsuario", ultimoUsuario);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             // Usuário não autenticado, exibir mensagem de erro
             request.setAttribute("mensagemErro", "Usuário ou senha incorretos. Por favor, tente novamente.");
