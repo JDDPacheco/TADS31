@@ -20,9 +20,33 @@ public class AutenticarLogin extends HttpServlet {
         usuarios[3] = new Usuario("cristian", "3456");
         usuarios[4] = new Usuario("tereza", "7890");
         
-        
+        // Recebido por requisição
         String usuarioRecebido = (request.getParameter("usuario"));
-        String senha = (request.getParameter("senha"));
+        String senhaRecebida = (request.getParameter("senha"));
+        
+        /** Lógica do Login */
+        // Variável para verificar se o usuário foi encontrado
+        boolean usuarioEncontrado = false;
+        // Verificando se o usuário e a senha correspondem a algum usuário cadastrado
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsuario().equals(usuarioRecebido) && usuario.getSenha().equals(senhaRecebida)) {
+                // Usuário encontrado
+                usuarioEncontrado = true;
+                break; // Interrompe o loop assim que o usuário for encontrado
+            }
+        }
+        // Verificando se o usuário foi encontrado ou não
+        if (usuarioEncontrado) {
+            // Usuário autenticado com sucesso
+            // Redireciona para o index
+            response.sendRedirect("index.jsp");
+        } else {
+            // Usuário não autenticado, exibir mensagem de erro
+            response.("raio");
+            quest.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        
+        
         
         
         
