@@ -13,5 +13,7 @@
         <a href="form-retangulo.html">Calcular Área de um Retângulo</a><br>
         <a href="form-triangulo.html">Calcular Área de um Triângulo-Retângulo</a><br>
         <a href="form-circunferencia.html">Calcular Área de uma Circunferência</a>
+        
+        <a href="login.jsp"> Logout </a>
     </body>
 </html>

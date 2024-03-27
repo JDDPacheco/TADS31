@@ -42,20 +42,9 @@ public class AutenticarLogin extends HttpServlet {
             response.sendRedirect("index.jsp");
         } else {
             // Usuário não autenticado, exibir mensagem de erro
-            response.("raio");
-            quest.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("mensagemErro", "Usuário ou senha incorretos. Por favor, tente novamente.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        
-        
-        
-        
-        
-        // Defina os valores necessários nos atributos do request
-        request.setAttribute("raio", intRaio);
-        request.setAttribute("area", dblArea);
-        
-        // Encaminhe o controle para a página .jsp desejada
-        request.getRequestDispatcher("resultado_circunferencia.jsp").forward(request, response);
     }
 
     @Override
