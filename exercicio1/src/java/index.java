@@ -16,7 +16,6 @@ public class index extends HttpServlet {
         PrintWriter saida;
         HttpSession sessao = request.getSession();
         
-        
         response.setContentType("text/html;charset=UTF-8");
         saida = response.getWriter();
         saida.println("<html>");

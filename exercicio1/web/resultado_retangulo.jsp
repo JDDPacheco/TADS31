@@ -11,7 +11,7 @@
     <p>Valor da base: <%= request.getAttribute("base") %></p>
     <p>Valor da altura: <%= request.getAttribute("altura") %></p>
     <p><span style="font-weight: bold; color: #ff5733;">Área do Retângulo: <%= request.getAttribute("area") %></span></p>
-    <a href="index.jsp" class="btn-voltar">Voltar à Página Inicial</a>
+    <a href="menu.jsp" class="btn-voltar">Voltar à Página Inicial</a>
         <a href="form-retangulo.html" class="btn-voltar">Novas dimensões</a>
 </body>
 </html>
