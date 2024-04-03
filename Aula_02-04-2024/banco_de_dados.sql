@@ -54,7 +54,7 @@ create table if not exists clinica_medica.medicos (
     CRM varchar(20) null,
     primary key (Codigo_Medico, Codigo_Especialidade),
     index fk_medicos_especialidade1_idx (Codigo_Especialidade asc),
-        foreing key (Codigo_Especialidade)
+        foreign key (Codigo_Especialidade)
         references clinica_medica.especialidades (Codigo_Especialidade)
         on delete no action
         on update no action)
@@ -63,5 +63,36 @@ ENGINE = InnoDB;
 create table if not exists clinica_medica.convenios(
     Codigo_Convenio int not null auto_increment,
     Empresa_Convenio varchar(45) null,
-    
-)
+    CNPJ varchar(18) null,
+    Telefone varchar(20) null,
+    primary key (Codigo_Convenio))
+ENGINE = InnoDB;
+
+create table if not exists clinica_medica.Cadastro_pacientes(
+    Codigo_Paciente int not null auto_increment,
+    Nome varchar(50) null,
+    Numero_RG varchar(12) null,
+    Numero_RG varchar(12) null,
+    Orgao_Emissor varchar(6) null,
+    Numero_CPF varchar(14) null,
+    Endereco varchar(50) null,
+    Numero varchar(15) null,
+    Complemento varchar(30) null,
+    Bairro varchar(40) null,
+    Cidade varchar(40) null,
+    Estado varchar(2) null,
+    Telefone varchar(20) null,
+    Celular varchar(20) null,
+    Data_Nascimento date null,
+    Sexo varchar(1) null,
+    Tem_Convenio varchar(1) null,
+    Codigo_Convenio int not null,
+    Senha_Acesso varchar(10),
+    primary key (Codigo_Paciente, Codigo_Convenio),
+    index fk_paciente_convenios1_idx (Codigo_Convenio asc),
+    constraint fk_paciente_convenios1
+        foreign key (Codigo_Convenio)
+        references clinica_medica.convenios (Codigo_Convenio)
+        on delete no action,
+        on update no action)
+ENGINE = InnoDB;
