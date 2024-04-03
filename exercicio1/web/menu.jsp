@@ -14,9 +14,9 @@
         <a href="form-triangulo.html">Calcular Área de um Triângulo-Retângulo</a><br>
         <a href="form-circunferencia.html">Calcular Área de uma Circunferência</a>
         
-        <a href="login.jsp" class="btn-logout"> Logout </a>
-        
-        <!-- Exibir o último usuário -->
-    <p>Usuário: ${ultimoUsuario}</p>
+        <a href="/exercicio1/index" class="btn-logout"> Logout </a>
+<!--        
+         Exibir o último usuário 
+    <p>Usuário: ${ultimoUsuario}</p>-->
     </body>
 </html>

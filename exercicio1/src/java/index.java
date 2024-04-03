@@ -21,13 +21,15 @@ public class index extends HttpServlet {
         saida.println("<html>");
         saida.println("<head>");
         saida.println("<title> Calculo de areas de figuras geometricas </title>");
+        saida.println("<link rel=\"stylesheet\" href=\"style.css\">");
         saida.println("</head>");
         saida.println("<body>");
         
         if(sessao.isNew()){
-            saida.println("<p> Uma nova sessao foi criada! </p>");
+            sessao.setMaxInactiveInterval(10*60);
+            saida.println("<h1 style=\"text-align: center;\"> Uma nova sessao foi criada! </h1>");
         }else{
-            saida.println("<p> Ola... Voce voltou a pagina! </p>");
+            saida.println("<h1 style=\"text-align: center;\"> Ola... Voce voltou a pagina! </h1>");
         }
         
         saida.println("<a href=\""+response.encodeURL("login.jsp")+"\">Entrar</a>");
