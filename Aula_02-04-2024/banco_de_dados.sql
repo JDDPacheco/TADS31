@@ -1,98 +1,134 @@
-use clinica_medica:
+create database clinica_medica;
 
-create table if not exists clinica_medica.funcionarios(
-	Codigo_Funcionario int not null auto_increment,
-  Nome_Completo varchar(50) null,
-  Numero_RG varchar(12) null,
-  Orgao_Emissor varchar(6) null,
-  Numero_CPF varchar(14) null,
-  Endereco varchar(50) null,
-  Numero varchar(15) null,
-  Complemento varchar(30) null,
-  Bairro varchar(40) null,
-  Cidade varchar(40) null,
-  Estado varchar(2) null,
-  Telefone varchar(20) null,
-  Celular varchar(20) null,
-  Numero_CTPS varchar(20) null,
-  Numero_PIS varchar(20) null,
-  Data_Nascimento date null,
-  primary key (Codigo_Funcionario),
-  index idx_Nome (Nome_Completo asc),
-  index idx_RG (Numero_RG asc),
-  index idx_CPF (Numero_CPF asc))
-ENGINE = InnoDB;
+use clinica_medica;
 
-create table if not exists clinica_medica.usuarios(
-  Registro_Usuario int not null auto_increment,
-  Identificacao_Usuario varchar(20) null,
-  Senha_Acesso varchar(10) null,
-  Cadastro_Funcionario varchar(1) null default 'N',
-  Cadastro_Usuario varchar(1) null default 'N',
-  Cadastro_Paciente varchar(1) null default 'N',
-  Cadastro_Especialidade varchar(1) null default 'N',
-  Cadastro_Medico varchar(1) null default 'N',
-  Cadastro_Convenio varchar(1) null default 'N',
-  Agendamento_Consulta varchar(1) null default 'N',
-  Cancelamento_Consulta varchar(1) null default 'N',
-  Modulo_Adiministrativo varchar(1) null default 'N',
-  Modulo_Agendamento varchar(1) null default 'N',
-  Modulo_Atendimento varchar(1) null default 'N',
-  primary key (Registro_Usuario))
-ENGINE = InnoDB;
+create table clinica_medica.funcionarios(
+	Codigo_Funcionario INT NOT NULL AUTO_INCREMENT,
+    Nome_Completo VARCHAR(255) NULL,
+    Numero_RG VARCHAR(12) NULL,
+    Orgao_Emissor VARCHAR(6) NULL,
+    Numero_CPF VARCHAR(14) NULL,
+    Endereco VARCHAR(50) NULL,
+    Numero VARCHAR(15) NULL,
+    Complemento VARCHAR(30) NULL,
+    Bairro VARCHAR(40) NULL,
+    Cidade VARCHAR(40) NULL,
+    Estado VARCHAR(2) NULL,
+    Telefone VARCHAR(20) NULL,
+    Celular VARCHAR(20) NULL,
+    Numero_CTPS VARCHAR(20) NULL,
+    Numero_PIS VARCHAR(20) NULL,
+    Data_Nascimento DATE NULL,
+    PRIMARY KEY (Codigo_Funcionario),
+    INDEX Idx_Nome (Nome_Completo ASC),
+    INDEX Idx_RG (Numero_RG ASC),
+    INDEX Idx_CPF (Numero_CPF ASC)
+) ENGINE = InnoDB;
 
-create table if not exists clinica_medica.especialidades (
-    Codigo_Especialidades int not null auto_increment,
-    Descricao_Especialidade varchar(45) null,
-    primary key (Codigo_Especialidades))
-ENGINE = InnoDB;
+CREATE TABLE clinica_medica.usuarios (
+	Registro_Usuario INT NOT NULL AUTO_INCREMENT,
+    Identificacao_Usuario VARCHAR(20) NULL,
+    Senha_Acesso VARCHAR(10) NULL,
+    Cadastro_Funcionario VARCHAR(1) NULL DEFAULT 'N',
+    Cadastro_Usuario VARCHAR(1) NULL DEFAULT 'N',
+    Cadastro_Paciente VARCHAR(1) NULL DEFAULT 'N',
+    Cadastro_Especialidade VARCHAR(1) NULL DEFAULT 'N',
+    Cadastro_Medico VARCHAR(1) NULL DEFAULT 'N',
+    Cadastro_Convenio VARCHAR(1) NULL DEFAULT 'N',
+    Agendamento_Consulta VARCHAR(1) NULL DEFAULT 'N',
+    Cancelamento_Consulta VARCHAR(1) NULL DEFAULT 'N',
+    Modulo_Administrativo VARCHAR(1) NULL DEFAULT 'N',
+    Modulo_Agendamento VARCHAR(1) NULL DEFAULT 'N',
+    Modulo_Atendimento VARCHAR(1) NULL DEFAULT 'N',
+    PRIMARY KEY (Registro_Usuario)
+)ENGINE = InnoDB;
 
-create table if not exists clinica_medica.medicos (
-    Codigo_Medico int not null auto_increment,
-    Nome_Medico varchar(50) null,
-    Codigo_Especialidade int not null,
-    CRM varchar(20) null,
-    primary key (Codigo_Medico, Codigo_Especialidade),
-    index fk_medicos_especialidade1_idx (Codigo_Especialidade asc),
-        foreign key (Codigo_Especialidade)
-        references clinica_medica.especialidades (Codigo_Especialidade)
-        on delete no action
-        on update no action)
-ENGINE = InnoDB;
+CREATE TABLE clinica_medica.especialidades (
+	Codigo_Especialidade INT NOT NULL AUTO_INCREMENT,
+    Descricao_Especialidade VARCHAR(45) NULL,
+    PRIMARY KEY (Codigo_Especialidade)
+)ENGINE = InnoDB;
 
-create table if not exists clinica_medica.convenios(
-    Codigo_Convenio int not null auto_increment,
-    Empresa_Convenio varchar(45) null,
-    CNPJ varchar(18) null,
-    Telefone varchar(20) null,
-    primary key (Codigo_Convenio))
-ENGINE = InnoDB;
+CREATE TABLE clinica_medica.medicos(
+	Codigo_Medico INT NOT NULL AUTO_INCREMENT,
+    Nome_Medico VARCHAR(50) NULL,
+    Codigo_Especialidade INT NOT NULL,
+    CRM VARCHAR(20) NULL,
+    PRIMARY KEY (Codigo_Medico, Codigo_Especialidade),
+    INDEX fk_medicos_especialidades_idx (Codigo_Especialidade),
+    CONSTRAINT fk_medicos_especialidades
+		FOREIGN KEY (Codigo_Especialidade)
+		REFERENCES clinica_medica.especialidades (Codigo_Especialidade)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+)ENGINE = InnoDB;
 
-create table if not exists clinica_medica.Cadastro_pacientes(
-    Codigo_Paciente int not null auto_increment,
-    Nome varchar(50) null,
-    Numero_RG varchar(12) null,
-    Numero_RG varchar(12) null,
-    Orgao_Emissor varchar(6) null,
-    Numero_CPF varchar(14) null,
-    Endereco varchar(50) null,
-    Numero varchar(15) null,
-    Complemento varchar(30) null,
-    Bairro varchar(40) null,
-    Cidade varchar(40) null,
-    Estado varchar(2) null,
-    Telefone varchar(20) null,
-    Celular varchar(20) null,
-    Data_Nascimento date null,
-    Sexo varchar(1) null,
-    Tem_Convenio varchar(1) null,
-    Codigo_Convenio int not null,
-    Senha_Acesso varchar(10),
-    primary key (Codigo_Paciente, Codigo_Convenio),
-    index fk_paciente_convenios1_idx (Codigo_Convenio asc),
-    constraint fk_paciente_convenios1
-        foreign key (Codigo_Convenio)
-        references clinica_medica.convenios (Codigo_Convenio)
-        on delete no action,
-        on update no action)
-ENGINE = InnoDB;
+CREATE TABLE clinica_medica.convenios (
+	Codigo_Convenio INT NOT NULL AUTO_INCREMENT,
+    Empresa_Convenio VARCHAR(45) NULL,
+    CNPJ VARCHAR(18) NULL,
+    Telefone VARCHAR(20) NULL,
+    PRIMARY KEY (Codigo_Convenio)
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS clinica_medica.pacientes ( Codigo_Paciente INT NOT NULL AUTO_INCREMENT,
+	Nome VARCHAR (50) NULL,
+	Numero_RG VARCHAR (12) NULL,
+	Orgao_Emissor VARCHAR (6) NULL, Numero_CPF VARCHAR (14) NULL, Endereco VARCHAR (50) NULL, Numero VARCHAR (15) NULL,
+	Complemento VARCHAR (30) NULL,
+	Bairro VARCHAR (40) NULL, Cidade VARCHAR (40) NULL,
+	Estado VARCHAR (2) NULL, Telefone VARCHAR (20) NULL, Celular VARCHAR (20) NULL, Data_Nascimento DATE NULL, Sexo VARCHAR (1) NULL,
+	Tem_Convenio VARCHAR(1) NULL, Codigo_Convenio INT NOT NULL,
+	Senha_Acesso VARCHAR (10),
+	PRIMARY KEY (Codigo_Paciente, Codigo_Convenio),
+	INDEX fk_pacientes_conveniosl_idx (Codigo_Convenio ASC), 
+    CONSTRAINT fk_pacientes_convenios1
+		FOREIGN KEY (Codigo_Convenio)
+		REFERENCES clinica_medica.convenios (Codigo_Convenio)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS clinica_medica. agenda_consulta (
+Registro_Agenda INT NOT NULL AUTO_INCREMENT,
+Codigo_Usuario INT NOT NULL,
+Codigo_Paciente INT NOT NULL, Codigo_Medico INT NOT NULL, Data DATE NULL,
+Hora VARCHAR (5) NULL,
+Retorno VARCHAR (1) NULL DEFAULT 'N',
+Cancelado VARCHAR (1) NULL DEFAULT 'N',
+Motivo_Cancelamento TEXT NULL,
+PRIMARY KEY (Registro_Agenda, Codigo_Usuario, Codigo_Medico, Codigo_Paciente), 
+INDEX fk_agenda_consulta_pacientesl_idx (Codigo_Paciente ASC),
+INDEX fk_agenda_consulta_medicosl_idx (Codigo_Medico ASC),
+INDEX fk_agenda_consulta_usuariosl_idx (Codigo_Usuario ASC), 
+CONSTRAINT fk_agenda_consulta_pacientes
+	FOREIGN KEY (Codigo_Paciente)
+	REFERENCES clinica_medica.pacientes (Codigo_Paciente)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+CONSTRAINT fk_agenda_consulta_medicosl
+	FOREIGN KEY (Codigo_Medico)
+	REFERENCES clinica_medica.medicos (Codigo_Medico)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+CONSTRAINT fk_agenda_consulta_usuariosl
+	FOREIGN KEY (Codigo_Usuario)
+	REFERENCES clinica_medica.usuarios (Registro_Usuario)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+)ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS clinica_medica.prontuario_paciente (
+	Registro INT NOT NULL AUTO_INCREMENT,
+	Registro_Agenda INT NOT NULL,
+	Historico TEXT NULL,
+	Receituario TEXT NULL,
+	Exames TEXT NULL,
+	PRIMARY KEY (Registro, Registro_Agenda),
+	INDEX fk_prontuario_paciente_agenda_consultal_idx (Registro_Agenda ASC), 
+    CONSTRAINT fk_prontuario_paciente_agenda_consultal
+	FOREIGN KEY (Registro_Agenda)
+	REFERENCES clinica_medica. agenda_consulta (Registro_Agenda)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+)ENGINE = InnoDB;
