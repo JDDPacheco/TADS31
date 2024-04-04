@@ -3,6 +3,7 @@
 use bd2024;
 
 -- 1) listar bairros
+drop procedure if exists sp_lista_bairro;
 delimiter ##
 create procedure sp_lista_bairro()
 begin
@@ -13,9 +14,10 @@ begin
 end ##
 delimiter ;
 
-call sp_lista_bairro()
+call sp_lista_bairro();
 
 -- 2) listar clientes por bairros
+drop procedure if exists sp_cliente_por_bairro;
 delimiter ##
 create procedure sp_cliente_por_bairro(
 										p_bairro varchar(30))
@@ -31,6 +33,7 @@ delimiter ;
 call sp_cliente_por_bairro('centro');
 
 -- 3) listar clientes por bairro e sexo
+drop procedure if exists sp_cliente_por_bairrosexo;
 delimiter ##
 create procedure sp_cliente_por_bairrosexo(
 										p_bairro varchar(30),
@@ -48,8 +51,7 @@ delimiter ;
 call sp_cliente_por_bairrosexo('parque 10','f');
 
 -- 4) listar cliente por bairro e sexo, retornando uma mensagem quando o termo de busca(parâmetro de entrada) for inválido
-drop procedure sp_cliente_por_bairro_sexo;
-
+drop procedure if exists sp_cliente_por_bairro_sexo;
 delimiter ##
 
 create procedure sp_cliente_por_bairro_sexo(
@@ -96,17 +98,17 @@ Obs.: Caso o funcionario já esteja demitido, retornar erro.
 Obs.Harley: O salário não pode diminuir.
 */
 -- Area de Testes
-
+/*
 select count(funcodigo)
 							from funcionario
                             where funsalario < 1759.49
                             and funcodigo = '3';
 
 select v_demitido;
-
-
+*/
+drop procedure if exists sp_alterar_salario;
 delimiter ##
-create procedure alterar_salario(p_funcodigo int(11), p_novosalario double(6,2))
+create procedure sp_alterar_salario(p_funcodigo int(11), p_novosalario double(6,2))
 begin
 	declare v_demitido, v_funcionariovalido, v_salariomaior boolean default false;
     set v_demitido = (select count(fundtdem)
@@ -144,4 +146,4 @@ delimiter ;
 drop procedure alterar_salario;
 */
 
-call alterar_salario('3',3005);
+call sp_alterar_salario('3',3005);

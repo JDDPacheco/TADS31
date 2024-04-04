@@ -1,7 +1,7 @@
 USE bd2024;
 
 -- 1) Surgiu a necessidade de registrar e manter histórico de todas as alterações salariais dos  funcionários.
-CREATE TABLE salariohistorico (
+CREATE TABLE IF NOT EXISTS salariohistorico (
     histcodigo int(11) not null unique auto_increment,
     histfuncodigo int(11) NOT NULL,
     histantsalario double(6,2) NOT NULL,

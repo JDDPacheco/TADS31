@@ -5,7 +5,7 @@
 -- 1) Mostre os históricos de alterações de salários de um determinado funcionário (nome do funcionário, data de alteração e valor do salário). Utilize o código do funcionário como parâmetro da SP.
 
 delimiter ##
-
+drop procedure if exists sp_atualizacoes_salarios;
 create procedure sp_atualizacoes_salarios(p_funcodigo int)
 begin
 
@@ -31,7 +31,7 @@ delimiter ;
 
 
 -- 2) Crie (em uma única stored procedures) opções para inserção, atualização e deleção de clientes. Defina os parâmetros de forma adequada para cada operação, e valide os campos que são chaves estrangeiras, fazendo os devidos tratamentos e envio de mensagens de erros.
-
+drop procedure if exists sp_crud_cliente;
 delimiter ##
 create procedure sp_crud_cliente(p_opcao INT(1), -- 1: Inserir, 2: Atualizar, 3: Deletar
 				p_clicodigo INT(11),
@@ -130,7 +130,7 @@ delimiter ;
 
 
 -- 3) Mostre o total de vendas por sexo de clientes e forma de pagamento.
-
+drop procedure if exists sp_vendas_p_sexo_fpagamento;
 delimiter ##
 
 create procedure sp_vendas_p_sexo_fpagamento()
@@ -210,7 +210,7 @@ call sp_produtos_saldo(5);
 
 delimiter ##
 
-drop procedure if exists p_produtos_saldo_sexo_estado;
+drop procedure if exists sp_produtos_saldo_sexo_estado;
 
 create procedure sp_produtos_saldo_sexo_estado(p_clisexo char(1), p_cliestcodigo int(11))
 
