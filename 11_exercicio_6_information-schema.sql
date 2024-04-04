@@ -7,6 +7,10 @@
 
 */
 
+/*
+Documentação de information_schema MySQL: https://dev.mysql.com/doc/mysql-infoschema-excerpt/5.7/en/information-schema-character-sets-table.html
+*/
+
 -- 1)
 drop procedure if exists sp_tabela_maior_menor_relacionamentos;
 DELIMITER //
@@ -26,16 +30,28 @@ drop procedure if exists sp_total_caracteres_by_tabela;
 DELIMITER //
 CREATE PROCEDURE sp_total_caracteres_by_tabela(v_tabela VARCHAR(255))
 begin
-	select t.table_name, sum(CHARACTER_MAXIMUM_LENGTH) 'QTD de Caracteres'
-	FROM information_schema.TABLES t
-	JOIN information_schema.COLUMNS c ON t.table_schema = c.table_schema AND t.table_name = c.table_name
-	WHERE t.table_schema = 'bd2024'
-	AND t.table_name = v_tabela and c.table_name = v_tabela
-    and c.DATA_TYPE in ('varchar','char')
-    GROUP BY t.table_name;
+	select table_name, sum(CHARACTER_MAXIMUM_LENGTH) 'QTD de Caracteres'
+	from information_schema.COLUMNS
+	where table_schema = 'bd2024'
+	and table_name = v_tabela
+    and DATA_TYPE in ('varchar','char')
+    GROUP BY table_name;
 
-END //
+end //
 DELIMITER ;
 call sp_total_caracteres_by_tabela('cliente');
 
 -- 3)
+drop procedure if exists sp_chaves_estrangeiras_by_tabela;
+DELIMITER //
+create procedure sp_chaves_estrangeiras_by_tabela(v_tabela VARCHAR(255))
+begin
+	select COLUMN_NAME, REFERENCED_TABLE_NAME , REFERENCED_COLUMN_NAME
+    from information_schema.KEY_COLUMN_USAGE
+    where table_schema = 'bd2024'
+    and table_name = v_tabela
+    and REFERENCED_TABLE_NAME is not null
+    and REFERENCED_COLUMN_NAME is not null;
+end //
+DELIMITER ;
+call sp_chaves_estrangeiras_by_tabela('cliente');
