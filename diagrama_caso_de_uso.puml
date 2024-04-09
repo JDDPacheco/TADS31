@@ -1,0 +1,22 @@
+@startuml
+
+title Diagrama de Caso de Uso
+!theme spacelab-white
+scale 1.25
+
+package solicitarRemedio{
+actor Solicitante as sol
+usecase "Logar" as log
+usecase "Pesquisar remédio" as pr
+usecase "Ver informações sobre remédio" as visr
+usecase "Solicitar remédio" as sr
+usecase "Notificar que a ubs recebeu pedido" as nurr
+}
+
+sol -r- log
+pr .l.> log: <<extends>>
+visr .l.> pr: <<extends>>
+sr .u.> pr: <<extends>>
+sr .r.> nurr: <<include>>
+
+@enduml

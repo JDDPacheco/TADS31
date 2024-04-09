@@ -1,0 +1,40 @@
+@startuml
+scale 1.5
+!theme amiga
+
+class Interesse{
+- nome:String
+- pessoas:List<Titular>
+}
+
+class Titular{
+- nome:String
+- telefone:String
+- email:String
+- endereco:String
+- interesse:List<Interesse>
+- historico:List<Historico>
+- dependentes:List<Dependente>
+}
+
+class Dependente{
+- nome:String
+- dataNascimento:Date
+}
+
+class Historico{
+- status:Status
+- data:Date
+}
+
+class Status{
+- nome:String
+}
+
+Titular "*" <-l-> "*" Interesse: "                  "
+Titular "1" -r-> "*" Dependente: "      possui      "
+Titular "1" --> "*" Historico: "                    "
+Historico "*" -r> "1" Status: "                     "
+
+
+@enduml
