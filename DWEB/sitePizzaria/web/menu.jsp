@@ -16,7 +16,7 @@
 
 <body>
     <h1>Menus de Pizzas</h1>
-    <form id="pedidoForm" action="carrinho.jsp" method="POST">
+    <form method="post" action="CarrinhoServlet" name="carrinho">
         <fieldset>
             <legend>Escolha o sabor da sua Pizza:</legend>
             <div class="container">
