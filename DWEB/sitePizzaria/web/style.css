@@ -4,7 +4,7 @@ a {
     color: #333; /* Cor do texto dos links */
     text-decoration: none; /* Remove sublinhado padrão */
     display: block; /* Define os links como blocos para ocupar a largura disponível */
-    width: 500px; /* Largura da caixa */
+    width: 90%; /* Largura da caixa */
     padding: 10px; /* Adiciona espaçamento interno aos links */
     margin: 0 auto 10px; /* Adiciona margem na parte inferior e centraliza horizontalmente */
     border: 1px solid #ccc; /* Adiciona uma borda */
@@ -34,13 +34,14 @@ body {
 }
 
 form {
-    max-width: 400px; /* Define a largura máxima do formulário */
-    margin: 20px auto; /* Centraliza o formulário na página */
-    padding: 20px; /* Adiciona espaçamento interno ao formulário */
-    background-color: #fff; /* Define a cor de fundo do formulário */
-    border-radius: 5px; /* Arredonda as bordas do formulário */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra ao formulário */
-}
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
 h1 {
     text-align: center; /* Centraliza o título */
@@ -57,18 +58,23 @@ input[type="number"] {
 }
 
 input[type="submit"] {
-    width: 100%; /* Define a largura total para o botão de envio */
-    padding: 10px; /* Adiciona espaçamento interno ao botão de envio */
-    background-color: #007bff; /* Define a cor de fundo do botão de envio */
-    color: #fff; /* Define a cor do texto do botão de envio */
-    border: none; /* Remove a borda do botão de envio */
-    border-radius: 5px; /* Arredonda as bordas do botão de envio */
-    cursor: pointer; /* Altera o cursor ao passar sobre o botão de envio */
-}
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
 input[type="submit"]:hover {
-    background-color: #0056b3; /* Altera a cor de fundo do botão de envio ao passar o mouse sobre ele */
+    background-color: #45a049;
 }
+
+input[type="checkbox"] {
+            margin-right: 5px;
+        }
 
 .container {
     max-width: 600px;

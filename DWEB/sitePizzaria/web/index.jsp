@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : 02/07/2024, 20:31:13
+    Author     : Cristian e Diogo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,8 +15,8 @@
     </head>
     <body>
         <h1 style="text-align: center;"> Pizzaria Oliveira & Pacheco </h1>
-        <h2 style="text-align: center;"> Bem Vindo!<br>Selecione seu Acesso </h2>
-        <a href="form-trapezio.html">Cliente</a><br>
-        <a href="form-retangulo.html">Gerenciamento</a>
+        <h2 style="text-align: center;"> Bem Vindo!<br>Selecione uma opção </h2>
+        <a href="menu.jsp">Fazer um pedido</a><br>
+        <a href="admin.jsp">Gerenciar pedidos</a>
     </body>
 </html>
