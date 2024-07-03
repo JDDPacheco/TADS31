@@ -128,6 +128,10 @@ body {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
         h1 {
             text-align: center;
@@ -187,3 +191,32 @@ body {
         font-family: Arial, sans-serif; /* Fonte Arial, ou uma fonte sans-serif genérica */
         text-align: center; /* Centraliza o texto */
     }
+    
+.pizza-block {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .pizza-block.selected {
+            border-color: #ff0000;
+        }
+        .pizza-block h2 {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .pizza-block p {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .pizza-block .price {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 10px;
+        }
+        .hidden-input {
+            display: none;
+        }
