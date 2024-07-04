@@ -13,6 +13,8 @@ Conhecer os outros SGBDs:
     1ª parte: Fazer uma tabela comparativa entre os SGBDs contemplando sintaxe SQL, requisitos de hardware, suporte a programação (SP, Functions, Triggers, Events, outros), Sistemas Operacionais, funcionalidades avançadas (SQL) e tecnologias adicionais (SQL).
     
     Link do trabalho: https://docs.google.com/spreadsheets/d/1Rzo8wbJM9VhgOWFN7id0kirkiQ-FGpXuWczMBFygtSY/
+    
+    Nosso grupo ficou com o INFORMIX
 */
 
 use bd2024;
