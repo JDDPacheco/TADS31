@@ -40,49 +40,4 @@ public class Conexao {
             System.out.println("Erro ao fechar a conexão.");
         }
     }
-
-    
-
-    public boolean alterarPizza(int idPizza, String descricao, String nome, double preco) {
-        String strComandoSQL = "UPDATE pizza SET pizza_descricao = "+ descricao +", pizza_nome = "+ nome +",pizza_preco = "+ preco +" WHERE id_pizza = "+ idPizza;
-
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = abrirConexao();
-            if (con == null) return false;
-            ps = con.prepareStatement(strComandoSQL);
-            ps.setString(1, descricao);
-            ps.setInt(2, idPizza);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            return false;
-        } finally {
-            fecharConexao(con, ps, null);
-        }
-    }
-
-    public boolean excluirPizza(int id) {
-        String strComandoSQL = "DELETE FROM pizza WHERE id_pizza = ?";
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = abrirConexao();
-            if (con == null) return false;
-            ps = con.prepareStatement(strComandoSQL);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            return false;
-        } finally {
-            fecharConexao(con, ps, null);
-        }
-    }
-
-    
-    
 }
