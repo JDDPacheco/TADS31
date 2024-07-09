@@ -43,8 +43,8 @@ public class Conexao {
 
     
 
-    public boolean alterarPizza(int idPizza, String descricao) {
-        String strComandoSQL = "UPDATE pizza SET descricao_pizza = "+ descricao +" WHERE id_pizza = "+ idPizza;
+    public boolean alterarPizza(int idPizza, String descricao, String nome, double preco) {
+        String strComandoSQL = "UPDATE pizza SET pizza_descricao = "+ descricao +", pizza_nome = "+ nome +",pizza_preco = "+ preco +" WHERE id_pizza = "+ idPizza;
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -83,28 +83,6 @@ public class Conexao {
         }
     }
 
-    public ResultSet listaPizzas(String strOrdem) {
-        String strComandoSQL;
-        if (strOrdem.equals("CÓDIGO"))
-            strComandoSQL = "SELECT * FROM especialidades ORDER BY Codigo_Especialidade";
-        else
-            strComandoSQL = "SELECT * FROM especialidades ORDER BY Descricao_Especialidade";
-        
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = abrirConexao();
-            if (con == null) return null;
-            ps = con.prepareStatement(strComandoSQL);
-            rs = ps.executeQuery();
-            return rs;
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            return null;
-        } finally {
-            // A conexão não deve ser fechada aqui para permitir que o ResultSet seja utilizado
-        }
-    }
+    
     
 }
