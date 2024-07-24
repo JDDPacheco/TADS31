@@ -52,7 +52,7 @@
         <p class="TituloAplicacao">SGC - Sistema de Gestão de Clínicas 1.0</p>
         <p class="TituloPagina">Cadastro de Funcionários - Edição</p>
 
-        <form name="formEditaUsuario" method="post" action="atualizarUsuario" target="_parent">
+        <form name="formEditaUsuario" method="post" action="AtualizarUsuario" target="_parent">
               <p>Nome do usuário: <input type="text" name="txtNomeUsuario" size="20" maxlength="20" value="<%=Usuario.getIdUsuario()%>"/></p>
               
               <% if(Usuario.getModuloAdministrativo().equals("S")) { %>
