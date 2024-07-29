@@ -35,7 +35,7 @@ public class AtualizarMedico extends HttpServlet {
         out.println("<head>");
         out.println("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />");
         out.println("<title>SGC - Versão 1.0</title>");
-        out.println("<link href='clinica_medica.css' rel='stylesheet' type='text/css' />");
+        out.println("<link href='style.css' rel='stylesheet' type='text/css' />");
         out.println("</head>");
         out.println("<body class='FundoPagina'>");
         out.println("<p class='TituloAplicacao'>SGC - Sistema de Gestão de Clínicas 1.0 </p>");
