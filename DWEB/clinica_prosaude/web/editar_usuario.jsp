@@ -171,10 +171,10 @@
               </p>
               <br>
               <p><input type="submit" name="btnAtualizar" value="Atualizar" />
-                  <span class="LinkVoltar"><a href="javascript:history.back()">[Voltar]</a></span>
+                  <span class="LinkVoltar"><a href="javascript:history.back()">Voltar à Página Anterior</a></span>
               </p>
         </form>
-        
+        <a href="index.html" class="btn-voltar">Voltar ao Início</a>
         <p class="RodapePagina">Copyright(c) 2015 - Editora Érica Ltda.</p>
         <%}%>
     </body>

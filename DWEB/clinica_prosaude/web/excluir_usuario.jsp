@@ -68,10 +68,10 @@
               <p><input type="hidden" name="codigo_usuario" value="<%=intCodigoUsuario%>"></p>
               <br>
               <p><input type="submit" name="btnExcluir" value="Excluir" />
-                  <span class="LinkVoltar"><a href="javascript:history.back()">[Voltar]</a></span>
+                  <span class="LinkVoltar"><a href="javascript:history.back()">Voltar à Página Anterior</a></span>
               </p>
         </form>
-        
+        <a href="index.html" class="btn-voltar">Voltar ao Início</a>
         <p class="RodapePagina">Copyright(c) 2015 - Editora Érica Ltda.</p>
         <%}%>
     </body>
