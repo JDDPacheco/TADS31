@@ -1,0 +1,39 @@
+CREATE PROCEDURE lista_clientes(par1 INT, par2 INT)
+    RETURNING INT AS clicodigo, VARCHAR(60) AS clinome;
+    
+    DEFINE vcodigo INT;
+    DEFINE vnome VARCHAR(60);
+    
+    FOREACH
+        SELECT clicodigo, clinome
+        INTO vcodigo, vnome
+        FROM cliente
+        WHERE clicodigo BETWEEN par1 AND par2
+        RETURN vcodigo, vnome
+        WITH RESUME;
+    END FOREACH;
+END PROCEDURE;
+
+EXECUTE PROCEDURE lista_clientes(1, 100);
+
+CREATE PROCEDURE sp_cliente_por_bairro(
+    p_bairro VARCHAR(30)
+)
+    RETURNING VARCHAR(30) AS bainome, VARCHAR(60) AS clinome;
+    
+    DEFINE v_bainome VARCHAR(30);
+    DEFINE v_clinome VARCHAR(60);
+    
+    FOREACH
+        SELECT bainome, clinome
+        INTO v_bainome, v_clinome
+        FROM bairro
+        INNER JOIN cliente
+            ON bairro.baicodigo = cliente.clibaicodigo
+        WHERE bainome = p_bairro
+        RETURN v_bainome, v_clinome
+        WITH RESUME;
+    END FOREACH;
+END PROCEDURE;
+
+EXECUTE PROCEDURE sp_cliente_por_bairro('NomeDoBairro');
