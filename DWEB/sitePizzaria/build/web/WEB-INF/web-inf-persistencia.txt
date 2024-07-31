@@ -1,0 +1,1 @@
+Arquivo de persistência do diretório WEB-INF	//apenas para commitar e evitar erro no Apache Netbeans IDE

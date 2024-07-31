@@ -157,4 +157,9 @@ CREATE TABLE IF NOT EXISTS clinica_medica.prontuario_paciente(
         ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+insert into especialidades(descricao_especialidade) values ('Clínica Geral');
+insert into especialidades(descricao_especialidade) values ('Otorrinolaringologia');
+insert into especialidades(descricao_especialidade) values ('Ginecologia Obstetrícia');
+insert into especialidades(descricao_especialidade) values ('Gastroenterologia');
+insert into especialidades(descricao_especialidade) values ('Pediatria');
+insert into especialidades(descricao_especialidade) values ('Cirurgia Geral');

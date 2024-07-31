@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/ExcluirMedico.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/menu_funcionarios.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/META-INF/context.xml</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/WEB-INF/web.xml</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/PesquisarUsuario.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/banco_dados/TesteConexao.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/PesquisarMedico.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/editar_medico.jsp</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/pesquisar_usuario.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/editar_usuario.jsp</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/inserir_medico.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/index.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/ExcluirUsuario.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/banco_dados/Usuarios.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/model/C_Medicos.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/menu_administracao.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/InserirUsuario.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/menu_medicos.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/excluir_usuario.jsp</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/conf/MANIFEST.MF</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/banco_dados/Medicos.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/excluir_medico.jsp</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/InserirMedico.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/pesquisar_medico.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/menu_especialidades.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/menu_usuarios.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/web/inserir_usuario.html</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/model/C_Usuarios.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/AtualizarUsuario.java</file>
+            <file>file:/D:/SALVE%20AQUI%20SEUS%20ARQUIVOS/DIOGO/TADS31/DWEB/clinica_prosaude/src/java/servlets/AtualizarMedico.java</file>
+        </group>
+    </open-files>
+</project-private>
