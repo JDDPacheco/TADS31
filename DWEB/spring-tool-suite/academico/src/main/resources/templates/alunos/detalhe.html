@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Aluno</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Aluno</h1>
+        <p>ID: <span th:text="${aluno.id}"></span></p>
+        <p>Nome: <span th:text="${aluno.nome}"></span></p>
+        <p>Email: <span th:text="${aluno.email}"></span></p>
+        <h3>Turmas</h3>
+        <ul>
+            <li th:each="turma : ${aluno.turmas}" th:text="${turma.disciplina}"></li>
+        </ul>
+		<a th:href="@{/aluno}" class="btn btn-secondary">Voltar</a>
+    </div>
+</body>
+</html>

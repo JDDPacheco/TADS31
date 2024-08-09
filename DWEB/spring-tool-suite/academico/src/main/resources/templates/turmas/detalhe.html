@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Turma</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes da Turma</h1>
+        <p><strong>ID:</strong> <span th:text="${turma.id}"></span></p>
+        <p><strong>Disciplina:</strong> <span th:text="${turma.disciplina}"></span></p>
+        <p><strong>Sigla:</strong> <span th:text="${turma.sigla}"></span></p>
+		<p><strong>Professor:</strong><span th:text="${turma.professor != null ? turma.professor.nome : 'Nenhum'}"></span></p>
+        <h2>Alunos</h2>
+        <ul>
+            <li th:each="aluno : ${turma.alunos}" th:text="${aluno.nome}"></li>
+        </ul>
+		<a th:href="@{/turma}" class="btn btn-secondary">Voltar</a>
+    </div>
+</body>
+</html>

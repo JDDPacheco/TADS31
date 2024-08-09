@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Professores List</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+	<h1>Mini Sitema Academico</h1>
+		        <ul class="nav nav-tabs">
+		            <li class="nav-item">
+		                <a class="nav-link" href="/aluno">Alunos</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link active" href="/professor">Professores</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="/turma">Turmas</a>
+		            </li>
+	</ul><br>
+<a class="btn btn-primary" th:href="@{/professor/new}">Adicione novo professor</a>
+<table class="table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Nome</th>
+<th>Email</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="professor : ${professores}">
+<td th:text="${professor.id}"></td>
+<td th:text="${professor.nome}"></td>
+<td th:text="${professor.email}"></td>
+<td>
+<a class="btn btn-secondary" th:href="@{/professor/edit/{id}(id=${professor.id})}">Editar</a>
+<a class="btn btn-danger" th:href="@{/professor/delete/{id}(id=${professor.id})}">Deletar</a>
+<a class="btn btn-info" th:href="@{/professor/detalhe/{id}(id=${professor.id})}">Detalhe</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

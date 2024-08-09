@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"&gt;
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Alunos List</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"&gt;
+    <title>Alunos List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-<h1>Alunos</h1>
-<a class="btn btn-primary" th:href="@{/aluno/new}">Adicione novo aluno</a>
-<table class="table">
-<thead>
-<tr>
-<th>ID</th>
-<th>Nome</th>
-<th>Email</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<tr th:each="aluno : ${aluno}">
-<td th:text="${aluno.id}"></td>
-<td th:text="${aluno.nome}"></td>
-<td th:text="${aluno.email}"></td>
-<td>
-<a class="btn btn-secondary" th:href="@{/aluno/edit/{id}(id=${aluno.id})}">Editar</a>
-<a class="btn btn-danger" th:href="@{/aluno/delete/{id}(id=${aluno.id})}">Deletar</a>
-</td>
-</tr>
-</tbody>
-</table>
+	<h1>Mini Sitema Academico</h1>
+	        <ul class="nav nav-tabs">
+	            <li class="nav-item">
+	                <a class="nav-link active" href="/aluno">Alunos</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="/professor">Professores</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="/turma">Turmas</a>
+	            </li>
+	        </ul><br>
+    <a class="btn btn-primary" th:href="@{/aluno/new}">Adicionar novo aluno</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${alunos}">
+                <td th:text="${aluno.id}"></td>
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.email}"></td>
+                <td>
+                    <a class="btn btn-secondary" th:href="@{/aluno/edit/{id}(id=${aluno.id})}">Editar</a>
+                    <a class="btn btn-danger" th:href="@{/aluno/delete/{id}(id=${aluno.id})}">Deletar</a>
+                    <a class="btn btn-info" th:href="@{/aluno/detalhe/{id}(id=${aluno.id})}">Detalhes</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

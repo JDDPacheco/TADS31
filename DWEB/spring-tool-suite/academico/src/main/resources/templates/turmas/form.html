@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulário Turmas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulário Turmas</h1>
+		<form th:action="@{/turma}" th:object="${turma}" method="post">
+		    <input type="hidden" th:field="*{id}">
+		    <div class="form-group">
+		        <label for="disciplina">Disciplina</label>
+		        <input type="text" class="form-control" id="disciplina" th:field="*{disciplina}">
+		    </div>
+		    <div class="form-group">
+		        <label for="sigla">Sigla</label>
+		        <input type="text" class="form-control" id="sigla" th:field="*{sigla}">
+		    </div>
+		    <div class="form-group">				
+				<label for="professor">Professor</label>
+				<select class="form-control" id="professor" th:field="*{professor}">
+					<option value="">Nenhum</option>
+				    <option th:each="professor : ${professores}"
+							th:value="${professor.id}"
+							th:text="${professor.nome}"></option>
+				</select>
+				
+		    </div>
+			<div class="form-group">
+			    <label for="alunos">Alunos</label>
+			    <div th:each="aluno : ${alunos}">
+			        <input type="checkbox" 
+			               th:value="${aluno.id}" 
+			               th:field="*{alunos}" />
+			        <span th:text="${aluno.nome}"></span>
+			    </div>
+			</div>
+		    <button type="submit" class="btn btn-primary">Salvar</button> <a th:href="@{/turma}" class="btn btn-secondary">Voltar</a>
+		</form>
+		
+    </div>
+</body>
+</html>

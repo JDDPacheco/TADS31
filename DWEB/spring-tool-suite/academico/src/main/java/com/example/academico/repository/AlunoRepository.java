@@ -1,9 +1,10 @@
 package com.example.academico.repository;
 
-
-import com.example.academico.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.example.academico.model.Aluno;
+import java.util.List;
 
-@Repository
-public interface AlunoRepository extends JpaRepository<Aluno, Long>{}
+public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+    // Método para buscar alunos por ID de turma
+    List<Aluno> findByTurmas_Id(Long turmaId);
+}

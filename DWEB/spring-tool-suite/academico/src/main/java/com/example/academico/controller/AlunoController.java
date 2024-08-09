@@ -17,11 +17,11 @@ public class AlunoController {
 
 	@GetMapping
 	public String getAllStudents(Model model) {
-		List<Aluno> aluno = alunoService.getAllStudents();
-		model.addAttribute("aluno", aluno);
-		return "alunos/list";
+	    List<Aluno> alunos = alunoService.getAllStudents();
+	    model.addAttribute("alunos", alunos); // Corrigir para "alunos"
+	    return "alunos/list";
 	}
-
+	
 	@GetMapping("/new")
 	public String createStudentForm(Model model) {
 		model.addAttribute("aluno", new Aluno());
@@ -46,4 +46,11 @@ public class AlunoController {
 		alunoService.deleteStudent(id);
 		return "redirect:/aluno";
 	}
+	
+	@GetMapping("/detalhe/{id}")
+    public String getStudentDetails(@PathVariable Long id, Model model) {
+        Aluno aluno = alunoService.getStudentById(id).orElseThrow(() -> new IllegalArgumentException("ID do Aluno Invalido:" + id));
+        model.addAttribute("aluno", aluno);
+        return "alunos/detalhe";
+    }
 }
