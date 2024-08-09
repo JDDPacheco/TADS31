@@ -16,7 +16,8 @@
     <body>
         <h1 style="text-align: center;"> Pizzaria Oliveira & Pacheco </h1>
         <h2 style="text-align: center;"> Bem Vindo!<br>Selecione uma opção </h2>
-        <a href="menu.jsp">Fazer um pedido</a><br>
+        
+        <a href="menu.jsp">Exibir Menu de Pizzas</a><br>
         <a href="admin.jsp">Gerenciar pedidos</a>
     </body>
 </html>

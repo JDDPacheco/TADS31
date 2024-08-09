@@ -8,7 +8,6 @@
     <div class="container">
         <h1>Formulário Alunos</h1>
         <form th:action="@{/aluno}" th:object="${aluno}" method="post">
-			<input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" id="nome" th:field="*{nome}">
@@ -20,6 +19,5 @@
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>
-	<a th:href="@{/aluno}">Voltar</a>
 </body>
 </html>

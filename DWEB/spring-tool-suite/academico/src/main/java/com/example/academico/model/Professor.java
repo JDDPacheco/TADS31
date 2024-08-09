@@ -3,7 +3,7 @@ package com.example.academico.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Aluno {
+public class Professor {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -11,8 +11,7 @@ public class Aluno {
 	private String nome;
 	private String email;
 	
-	@ManyToOne
-	@JoinColumn(name = "turma_id")
+	@OneToOne(mappedBy = "professor")
 	private Turma turma;
 
 	// Getters e Setters

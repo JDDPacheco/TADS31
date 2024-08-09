@@ -4,13 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexao {
-
+public class ConexaoBancoDados {
     Connection conBanco;
-
     public boolean abrirConexao(){
-
-        String url = "jdbc:mysql://localhost/pizzariaop?user=root&password=Lilidi";
+        String url ="jdbc:mysql://localhost/pizzariaOP?user=root&password=root";
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conBanco = DriverManager.getConnection(url);
@@ -20,7 +17,6 @@ public class Conexao {
             return false;
         }
     }
-
     public boolean fecharConexao(){
         try{
             conBanco.close();
@@ -30,7 +26,6 @@ public class Conexao {
             return false;
         }
     }
-
     public Connection obterConexao(){
         return conBanco;
     }

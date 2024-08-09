@@ -30,8 +30,8 @@ public class AlunoController {
 
 	@PostMapping
 	public String saveStudent(@ModelAttribute Aluno aluno) {
-		alunoService.saveStudent(aluno);
-		return "alunos/list";
+	    alunoService.saveStudent(aluno);
+	    return "redirect:/aluno";
 	}
 
 	@GetMapping("/edit/{id}")

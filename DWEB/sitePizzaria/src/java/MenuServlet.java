@@ -1,44 +1,56 @@
-import banco_dados.Conexao;
-import model.Pizza;
-
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pizza;
+import banco_dados.Conexao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet("/MenuServlet")
+@WebServlet(urlPatterns = {"/MenuServlet"})
 public class MenuServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         Conexao conexao = new Conexao();
-        Pizza pizzaModel = new Pizza(conexao);
-
-        List<Pizza> pizzaList = new ArrayList<>();
+        Pizza pizza = new Pizza();
         ResultSet rs = null;
-        try {
-            rs = pizzaModel.buscarPizza(0); // Aqui buscamos todas as pizzas, ajuste conforme necessário
-            while (rs.next()) {
-                Pizza pizza = new Pizza(conexao);
-                pizza.setId(rs.getInt("pizza_id"));
-                pizza.setNome(rs.getString("pizza_nome"));
-                pizza.setDescricao(rs.getString("pizza_descricao"));
-                pizza.setPreco(rs.getDouble("pizza_preco"));
-                pizzaList.add(pizza);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            conexao.fecharConexao(null, null, rs);
+
+        if(conexao.abrirConexao()){
+            pizza.configurarConexao(conexao.obterConexao());
+            rs = pizza.listarPizzas();
+            conexao.fecharConexao();
+        }else{
+            System.out.println("<p>Falha na conexao com o banco de dados</p>");
         }
 
-        request.setAttribute("pizzaList", pizzaList);
-        request.getRequestDispatcher("pizzas.jsp").forward(request, response);
+        // Defina os valores necessários nos atributos do request
+        request.setAttribute("listaDePizzas", rs);
+
+        // Encaminhe o controle para a página .jsp desejada
+        request.getRequestDispatcher("menu.jsp").forward(request, response);
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
 }
